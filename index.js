@@ -18,6 +18,20 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
+app.get('/api/whoami', async(req,res)=> {
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  const language = req.headers['accept-language'];
+  const software = req.headers['user-agent'];
+
+  res.json({
+    ipaddress: ip,
+    language: language,
+    software: software
+
+  })
+ 
+
+})
 
 // your first API endpoint...
 app.get('/api/hello', function (req, res) {
